@@ -1,0 +1,58 @@
+# 64-harmony
+
+is a 64-voice harmony generator
+
+low rates -> it's a random sequencer
+
+mid rates -> it's a chord generator
+
+audio rates up to 20kHz -> it's a unique noise source
+
+all quantize-able to unknown pentatonic scales
+
+![64 harmony in action](./img.jpg)
+
+**default**  
+e1 - pitch  
+e2 - decay  
+e3 - range  
+
+k1 (hold) - shift  
+k2 - random scale  
+k3 - II chord 
+
+**shit**  
+e1 - quantize  
+e2 - rate  
+e3 - lpf cutoff  
+
+k2 - init scale  
+k3 - V chord  
+
+## parameters
+
+default
+
+         ■            ●           
+    shift (hold)    pitch 
+
+                                                ●                  ● 
+                                              decay              range
+
+                                                ■                  ■
+                                           rand scale         II chord (hold)
+
+
+shift
+
+         ■           ●           
+    shift (hold)  quantize 
+
+                                                ●                  ● 
+                                               rate            lpf cutoff
+
+                                                ■                  ■
+                                            init scale       V chord (hold)
+
+
+
