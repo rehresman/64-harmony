@@ -37,7 +37,7 @@ e3 - lpf cutoff
 k2 - init scale  
 k3 - V chord  
 
-default
+**default**
 
          ■            ●           
     shift (hold)    pitch 
@@ -49,7 +49,7 @@ default
                                            rand scale         II chord (hold)
 
 
-shift
+**shift**
 
          ■           ●           
     shift (hold)  quantize 
