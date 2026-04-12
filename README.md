@@ -15,8 +15,9 @@ all quantize-able to unknown pentatonic scales
 # installation
 
 1. clone/download this repo to ```dust/code```
-2. restart norns
-3. select -> 64-harmony
+2. (optional) delete cover.png
+3. restart norns
+4. select -> 64-harmony
 
 ## parameters
 

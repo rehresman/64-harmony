@@ -122,8 +122,9 @@ function init()
   end)
 
   params:set_action("quantize", function(x)
+    local y = math.atan(50*x)/math.atan(50)
     viz.quant = x
-    engine.quantAmtIn(math.atan(50*x)/math.atan(50))
+    engine.quantAmtIn(y)
   end)
   
   params:set_action("cutoff", function(x)
@@ -174,7 +175,11 @@ function init()
     redraw()
   end
   viz_clock:start()
-
+  
+  clock.run(function()
+    clock.sleep(0.25)
+    params:bang()
+  end)
   redraw()
 end
 
@@ -196,8 +201,12 @@ function enc(n, d)
       params:delta("range", d)
     end
   end
-  
   redraw()
+  clock.run(function()
+  clock.sleep(0.25)
+  print("rebanging params after engine startup")
+  params:bang()
+end)
 end
 
 function init_scale()
