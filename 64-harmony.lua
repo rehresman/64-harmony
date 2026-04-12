@@ -3,7 +3,7 @@
 -- is a random sequencer
 -- chord generator
 -- noise source
--- quantizable to unknown pentatonic scales
+-- quantizable to pentatonics
 -- 
 -- -- -- ynomrah-46 -- -- -- -- -- -- -- -- -- -- -
 
@@ -122,9 +122,8 @@ function init()
   end)
 
   params:set_action("quantize", function(x)
-    local y = math.atan(50*x)/math.atan(50)
     viz.quant = x
-    engine.quantAmtIn(y)
+    engine.quantAmtIn(math.atan(50*x)/math.atan(50))
   end)
   
   params:set_action("cutoff", function(x)
