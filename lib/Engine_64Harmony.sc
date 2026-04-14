@@ -105,17 +105,12 @@ Engine_64Harmony : CroneEngine {
     
     SynthDef(\clock, { |rate = 1, outBuses = #[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
                           17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]|
-    		var rand, d, index, sigs;
+    		var rand, index, sigs;
     
     		rand = Dust.ar(rate);
-    
-    		d = Dseq((0..(polyphony-1)), inf);
-    		index = Demand.ar(rand, 0, d);
-    
+    		index = Stepper.ar(rand, 0, 0, polyphony-1, 1, 0);
     		sigs = Array.fill(polyphony, { |i|
-    			Select.ar(index, Array.fill(polyphony, { |j|
-    				(i == j).if({ rand }, { DC.ar(0) })
-    			}))
+    			((index-i).abs < 0.5 ) * rand;
     		});
     
     		polyphony.do { |i|
