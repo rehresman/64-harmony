@@ -11,6 +11,10 @@ engine.name = "64Harmony"
 
 math.randomseed(os.time())
 
+-- set this to true for limitless exploration
+-- beware: it's dark out there
+random_scale_degrees = false
+
 shift = false
 
 local ampL = 0
@@ -25,6 +29,50 @@ end
 local semitones = {sr(0),sr(1),sr(2),sr(3),sr(4),sr(5),sr(6),sr(7),sr(8),sr(9),sr(10),sr(11)}
 local semitones_init = {sr(0),sr(1),sr(2),sr(3),sr(4),sr(5),sr(6),sr(7),sr(8),sr(9),sr(10),sr(11)}
 
+-- takes scale degrees as parameters, not indexes
+local function scale(d1,d2,d3,d4,d5)
+  return {semitones_init[d1+1], semitones_init[d2+1], semitones_init[d3+1], semitones_init[d4+1], semitones_init[d5+1]}
+end
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+-- scales were created with the following procedure:
+-- 1. take the major pentatonic scale,
+-- 2. vary one scale degree
+-- 3. (if necessary) alter related scale degrees
+-- 4. repeat for the minor pentatonic scale
+--
+-- i avoided certain sounds
+-- based on preference
+--
+-- i encourage you, dearest gentle reader
+-- to generate your own
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+local scales = {scale(0,2,4,7,9),
+                scale(1,2,4,7,9),
+                scale(11,2,4,7,9),
+                scale(0,1,5,7,10),
+                scale(11,3,4,6,8),
+                scale(0,2,3,7,9),
+                scale(0,2,5,7,9),
+                scale(0,2,4,6,9),
+                scale(0,2,4,8,10),
+                scale(0,2,4,7,8),
+                scale(0,2,4,7,10),
+                scale(0,2,4,7,11),
+                scale(0,3,5,7,10),
+                scale(1,3,5,7,10),
+                scale(11,3,6,8,10),
+                scale(0,4,5,7,10),
+                scale(0,2,5,7,10),
+                scale(11,1,3,4,8),
+                scale(0,3,6,8,10),
+                scale(0,3,5,6,10),
+                scale(0,3,5,8,10),
+                scale(0,3,5,7,9),
+                scale(1,3,5,8,11)
+}
+
+local current_scale = 1
 
 local function clamp(x, lo, hi)
   if x < lo then return lo end
@@ -204,7 +252,6 @@ function enc(n, d)
   redraw()
   clock.run(function()
   clock.sleep(0.25)
-  print("rebanging params after engine startup")
   params:bang()
 end)
 end
@@ -218,15 +265,31 @@ function init_scale()
 end
 
 function rand_scale()
-  for i = 1, #semitones - 1 do
-    local j = math.random(i, #semitones)
-    semitones[i], semitones[j] = semitones[j], semitones[i]
+  local d1,d2,d3,d4,d5
+  local r
+  if random_scale_degrees then
+    for i = 1, #semitones - 1 do
+      local j = math.random(i, #semitones)
+      semitones[i], semitones[j] = semitones[j], semitones[i]
+    end
+    d1 = semitones[1]
+    d2 = semitones[3]
+    d3 = semitones[5]
+    d4 = semitones[8]
+    d5 = semitones[10]
+  else
+    r = math.random(1, #scales)
+    if r == current_scale then
+      r = ((r + 1) % #scales) + 1
+    end
+    current_scale = r
+    d1,d2,d3,d4,d5 = table.unpack(scales[r])
   end
-  engine.step0In(semitones[1])
-  engine.step1In(semitones[3])
-  engine.step2In(semitones[5])
-  engine.step3In(semitones[8])
-  engine.step4In(semitones[10])
+  engine.step0In(d1)
+  engine.step1In(d2)
+  engine.step2In(d3)
+  engine.step3In(d4)
+  engine.step4In(d5)
 end
 
 function key(n, z)
