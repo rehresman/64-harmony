@@ -250,10 +250,6 @@ function enc(n, d)
     end
   end
   redraw()
-  clock.run(function()
-  clock.sleep(0.25)
-  params:bang()
-end)
 end
 
 function init_scale()
