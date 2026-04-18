@@ -10,6 +10,11 @@ audio rates up to 20kHz -> it's a unique noise source
 
 all quantize-able to unknown pentatonic scales
 
+![64 harmony in action](https://github.com/rehresman/64-harmony/blob/main/cover.png)
+
+This is only for raspberry pi 4 norns (very buff)
+standard norns version: https://github.com/rehresman/32-harmony
+
 ## parameters
 
 default
