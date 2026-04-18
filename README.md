@@ -10,36 +10,9 @@ audio rates up to 20kHz -> it's a unique noise source
 
 all quantize-able to unknown pentatonic scales
 
-note: this is only compatible with raspberry pi 4.  if you have standard norns, this is what you're looking for: https://github.com/rehresman/32-harmony
-
-![64 harmony in action](https://github.com/rehresman/64-harmony/blob/main/cover.png)
-
-# installation
-
-1. clone/download this repo to ```dust/code```
-2. restart norns
-3. select -> 64-harmony
-
 ## parameters
 
-**default**  
-e1 - pitch  
-e2 - decay  
-e3 - range  
-
-k1 (hold) - **shift**  
-k2 - random scale  
-k3 - II chord 
-
-**shit**  
-e1 - quantize  
-e2 - rate  
-e3 - lpf cutoff  
-
-k2 - init scale  
-k3 - V chord  
-
-**default**
+default
 
          ■            ●           
     shift (hold)    pitch 
@@ -51,7 +24,7 @@ k3 - V chord
                                            rand scale         II chord (hold)
 
 
-**shift**
+shift
 
          ■           ●           
     shift (hold)  quantize 
@@ -62,5 +35,22 @@ k3 - V chord
                                                 ■                  ■
                                             init scale       V chord (hold)
 
+**default**  
+e1 - pitch  
+e2 - decay  
+e3 - range  
 
+k1 (hold) - shift  
+k2 - random scale  
+k3 - II chord 
 
+**shit**  
+e1 - quantize  
+e2 - rate  
+e3 - lpf cutoff  
+
+k2 - init scale  
+k3 - V chord  
+
+**parameters page**
+attack

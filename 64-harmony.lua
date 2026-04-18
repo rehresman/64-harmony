@@ -149,6 +149,7 @@ end
 
 function init()
   params:add_control("pitch", "pitch", controlspec.new(20, 2000, 'exp', 0, 32.7, 'hz'))
+  params:add_control("attack", "attack", controlspec.new(0.01, 12, 'exp', 0, 0.01, 's'))
   params:add_control("decay", "decay", controlspec.new(0.01, 12, 'exp', 0, 3.5, 's'))
   params:add_control("range", "range", controlspec.new(1, 9, 'lin', 1, 4, 'oct'))
 
@@ -158,6 +159,10 @@ function init()
 
   params:set_action("pitch", function(x)
     engine.rootIn(x)
+  end)
+  
+  params:set_action("attack", function(x)
+    engine.attackIn(x)
   end)
 
   params:set_action("decay", function(x)
@@ -198,13 +203,6 @@ function init()
   end
   ampR_poll.time = 1/30
   ampR_poll:start()
-  
-  ampL_poll.time = 1 / 30
-  ampR_poll.time = 1 / 30
-  
-  ampL_poll:start()
-  ampR_poll:start()
-  
     
   viz = {
     rate = params:get("rate"),
@@ -223,12 +221,6 @@ function init()
     redraw()
   end
   viz_clock:start()
-  
-  clock.run(function()
-    clock.sleep(0.25)
-    params:bang()
-  end)
-  redraw()
 end
 
 function enc(n, d)
@@ -249,7 +241,6 @@ function enc(n, d)
       params:delta("range", d)
     end
   end
-  redraw()
 end
 
 function init_scale()
@@ -306,8 +297,6 @@ function key(n, z)
       engine.freqMultIn(1)
     end
   end
-  
-  redraw()
 end
 
 function draw_low_control_block(x, y, slot)
